@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">HG-android-client</string>
     <string name="action_settings">Settings</string>
+
+    <string name="facebook_app_id">1897634877226632</string>
+    <string name="fb_login_protocol_scheme">fb1897634877226632</string>
+
+    <string name="login_progress_title">Retrieving User Profile</string>
+    <string name="login_progress_message">Please wait...</string>
+
 </resources>
