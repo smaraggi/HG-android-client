@@ -53,3 +53,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
+
+after_success:
+ - ./gradlew cobertura coveralls
