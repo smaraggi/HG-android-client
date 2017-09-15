@@ -6,8 +6,8 @@ sudo: false
 language: java
 
 # JDK would be SDK, wich is below; might not be needed here...
-#jdk:
-# - oraclejdk8
+jdk:
+ - oraclejdk8
 
 env:
   global:
