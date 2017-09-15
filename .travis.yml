@@ -54,5 +54,12 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 
+# Travis CI + Android + Coveralls
+# https://github.com/kt3k/coveralls-gradle-plugin
+language: java
+
+jdk:
+ - oraclejdk8
+
 after_success:
  - ./gradlew cobertura coveralls
