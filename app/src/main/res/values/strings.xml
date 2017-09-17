@@ -8,4 +8,15 @@
     <string name="login_progress_title">Retrieving User Profile</string>
     <string name="login_progress_message">Please wait...</string>
 
+    <string name="button_login">Sign In</string>
+    <string name="label_or">or...</string>
+
+    <string name="person_username">Username</string>
+    <string name="person_password">Password</string>
+    <string name="person_email">Email</string>
+    <string name="registration_continue">Register</string>
+
+    <string name="register_progress_title">Registering</string>
+    <string name="register_progress_message">Please wait...</string>
+
 </resources>
