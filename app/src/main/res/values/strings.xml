@@ -19,4 +19,15 @@
     <string name="register_progress_title">Registering</string>
     <string name="register_progress_message">Please wait...</string>
 
+    <string name="profile_name">First Name</string>
+    <string name="profile_last_name">Last Name</string>
+    <string name="profile_birthdate">Birthdate</string>
+    <string name="profile_location">Location</string>
+
+    <string name="profile_iam">I am a</string>
+    <string name="passenger">Passenger</string>
+    <string name="driver">Driver</string>
+
+    <string name="profile_save">Save</string>
+
 </resources>

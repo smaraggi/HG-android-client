@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Padded"
+    android:id="@+id/profile_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/basic_form"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/component_editable_field"
+            android:id="@+id/first_name" />
+
+        <include layout="@layout/component_editable_field"
+            android:id="@+id/last_name" />
+
+        <include layout="@layout/component_editable_field"
+            android:id="@+id/birthdate" />
+
+        <include layout="@layout/component_editable_field"
+            android:id="@+id/location" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/save_button"
+        android:text="@string/profile_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
+    <LinearLayout
+        style="@style/Contrast"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/basic_form"
+        android:layout_above="@id/save_button">
+
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/profile_iam"
+                android:layout_weight="3"
+                android:layout_width="0px"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:text="@string/passenger"
+                android:layout_weight="3"
+                android:layout_width="0px"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:text="@string/driver"
+                android:layout_weight="2"
+                android:layout_width="0px"
+                android:layout_height="wrap_content" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</RelativeLayout>
