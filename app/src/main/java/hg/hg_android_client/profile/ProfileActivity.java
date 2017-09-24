@@ -1,6 +1,7 @@
 package hg.hg_android_client.profile;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -18,6 +19,10 @@ public class ProfileActivity extends LlevameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         initializeComponents();
+
+        if (savedInstanceState == null) {
+            initializeFragments();
+        }
     }
 
     private void initializeComponents() {
@@ -42,6 +47,30 @@ public class ProfileActivity extends LlevameActivity {
             EditableFieldComponent component = new EditableFieldComponent(parent, id[i]);
             component.setLabel(reader.readString(labels[i]));
         }
+    }
+
+    private void initializeFragments() {
+        NoneSelectedFragment fragment = new NoneSelectedFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+    public void onDriverSelected(View view) {
+        updateFragmentContainer(new DriverProfileFragment());
+    }
+
+    public void onPassengerSelected(View view) {
+        updateFragmentContainer(new PassengerProfileFragment());
+    }
+
+    private void updateFragmentContainer(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

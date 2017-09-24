@@ -9,6 +9,10 @@ public class UiReader {
 
     private View context;
 
+    public UiReader(View view) {
+        this.context = view;
+    }
+
     public UiReader(Fragment context) {
         this.context = context.getView();
     }
