@@ -1,7 +1,9 @@
 package hg.hg_android_client.login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -22,6 +24,8 @@ public class RegistrationActivity extends LlevameActivity {
     }
 
     public void registerOnClick(View button) {
+        hideKeyboard();
+
         UiReader reader = new UiReader(this);
 
         String username = reader.readEditText(R.id.person_username);
@@ -38,6 +42,20 @@ public class RegistrationActivity extends LlevameActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRegistrationSuccess(RegistrationSuccess event) {
         dismissDialog();
+        // TODO Improve transition or something...
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle("Registration Successful");
+        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                        Intent move = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(move);
+                    }
+                });
+        dialog.show();
     }
 
 }

@@ -13,6 +13,8 @@ import hg.hg_android_client.login.event.RegistrationSuccess;
 import hg.hg_android_client.login.intent.FacebookAuthenticationIntent;
 import hg.hg_android_client.login.intent.LoginIntent;
 import hg.hg_android_client.login.intent.RegistrationIntent;
+import hg.hg_android_client.login.repository.RegistrationEndpoint;
+import hg.hg_android_client.login.repository.RegistrationEndpointFactory;
 
 public class IdentityService extends IntentService {
 
@@ -59,12 +61,15 @@ public class IdentityService extends IntentService {
         String password = intent.getStringExtra(RegistrationIntent.KEY_PASSWORD);
         String usermail = intent.getStringExtra(RegistrationIntent.KEY_USERMAIL);
 
-        /*
-         * Hit registration endpoint.
-         */
+        RegistrationEndpoint.Response response = new RegistrationEndpointFactory()
+                .getEndpoint().request(username, password, usermail);
 
-        RegistrationSuccess e = new RegistrationSuccess();
-        EventBus.getDefault().post(e);
+        if (response.isSuccess()) {
+            RegistrationSuccess e = new RegistrationSuccess();
+            EventBus.getDefault().post(e);
+        } else {
+            // TODO: Handle error case.
+        }
     }
 
     private void handleApplicationLogin(Intent intent) {
