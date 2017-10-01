@@ -21,4 +21,10 @@ public class Driver extends User implements Serializable {
         return car;
     }
 
+    @Override
+    protected boolean additionalsComplete() {
+        return car != null &&
+               isNotNullOrEmpty(car.getModel()) &&
+               isNotNullOrEmpty(car.getPatent());
+    }
 }

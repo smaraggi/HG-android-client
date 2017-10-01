@@ -21,7 +21,7 @@ public class MockProfileRepository implements ProfileRepository {
     @Override
     public User retrieveCached() {
         CreditCard card = new CreditCard("4444333322221111", "123", "12/17");
-        return new Passenger("foo", "bar", "inet", "18/05/92", card);
+        return new Passenger("", "bar", "inet", "18/05/92", card);
     }
 
     @Override

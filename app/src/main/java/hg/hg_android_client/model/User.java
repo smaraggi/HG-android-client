@@ -47,4 +47,21 @@ public abstract class User implements Serializable {
         DRIVER, PASSENGER
     }
 
+    public boolean isProfileComplete() {
+        return basicsComplete() && additionalsComplete();
+    }
+
+    protected abstract boolean additionalsComplete();
+
+    protected boolean basicsComplete() {
+        return isNotNullOrEmpty(firstName) &&
+               isNotNullOrEmpty(lastName)  &&
+               isNotNullOrEmpty(location)  &&
+               isNotNullOrEmpty(birthdate);
+    }
+
+    protected boolean isNotNullOrEmpty(String string) {
+        return string != null && string.trim().length() != 0;
+    }
+
 }

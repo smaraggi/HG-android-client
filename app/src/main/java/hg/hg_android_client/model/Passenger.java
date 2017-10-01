@@ -20,4 +20,11 @@ public class Passenger extends User implements Serializable {
         return creditCard;
     }
 
+    @Override
+    protected boolean additionalsComplete() {
+        return creditCard != null &&
+               isNotNullOrEmpty(creditCard.getNumber()) &&
+               isNotNullOrEmpty(creditCard.getExpirationDate()) &&
+               isNotNullOrEmpty(creditCard.getSecurityCode());
+    }
 }

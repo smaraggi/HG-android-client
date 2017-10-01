@@ -37,6 +37,8 @@ public class ProfileActivity extends LlevameActivity {
     }
 
     private void initializeComponents() {
+        // TODO: Mark required fields that are missing.
+
         UiReader reader = new UiReader(this);
         View parent = findViewById(R.id.profile_parent);
 
