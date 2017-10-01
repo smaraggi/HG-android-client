@@ -1,19 +1,20 @@
 package hg.hg_android_client.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class User {
+public abstract class User implements Serializable {
     private final String firstName;
     private final String lastName;
     private final String location;
-    private final Date birthdate;
+    private final String birthdate;
     private final Role role;
 
     protected User(
             String firstName,
             String lastName,
             String location,
-            Date birthdate,
+            String birthdate,
             Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,7 +35,7 @@ public abstract class User {
         return location;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 

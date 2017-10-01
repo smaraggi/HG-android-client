@@ -1,8 +1,9 @@
 package hg.hg_android_client.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Driver extends User {
+public class Driver extends User implements Serializable {
 
     private final Car car;
 
@@ -10,7 +11,7 @@ public class Driver extends User {
             String firstName,
             String lastName,
             String location,
-            Date birthdate,
+            String birthdate,
             Car car) {
         super(firstName, lastName, location, birthdate, Role.DRIVER);
         this.car = car;

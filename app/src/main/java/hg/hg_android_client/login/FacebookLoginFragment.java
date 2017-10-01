@@ -92,7 +92,7 @@ public class FacebookLoginFragment extends LlevameFragment
          * then post a regular auth success event as if it was a regular login.
          */
 
-        EventBus.getDefault().post(new AuthSuccess());
+        EventBus.getDefault().post(new AuthSuccess(event.getToken()));
     }
 
 }

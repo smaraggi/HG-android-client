@@ -1,6 +1,8 @@
 package hg.hg_android_client.model;
 
-public class CreditCard {
+import java.io.Serializable;
+
+public class CreditCard implements Serializable {
     private final String number;
     private final String securityCode;
     private final String expirationDate;

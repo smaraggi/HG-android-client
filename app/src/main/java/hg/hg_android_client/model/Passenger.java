@@ -1,15 +1,16 @@
 package hg.hg_android_client.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Passenger extends User {
+public class Passenger extends User implements Serializable {
     private final CreditCard creditCard;
 
-    protected Passenger(
+    public Passenger(
             String firstName,
             String lastName,
             String location,
-            Date birthdate,
+            String birthdate,
             CreditCard creditCard) {
         super(firstName, lastName, location, birthdate, Role.PASSENGER);
         this.creditCard = creditCard;

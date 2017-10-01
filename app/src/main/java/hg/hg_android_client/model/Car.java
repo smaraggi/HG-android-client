@@ -1,6 +1,8 @@
 package hg.hg_android_client.model;
 
-public class Car {
+import java.io.Serializable;
+
+public class Car implements Serializable {
     private final String patent;
     private final String model;
 

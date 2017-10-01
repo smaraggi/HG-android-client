@@ -9,6 +9,7 @@
     <string name="login_progress_message">Please wait...</string>
 
     <string name="button_login">Sign In</string>
+    <string name="button_signup">Sign Up</string>
     <string name="label_or">or...</string>
 
     <string name="person_username">Username</string>

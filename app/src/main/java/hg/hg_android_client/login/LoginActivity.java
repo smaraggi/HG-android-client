@@ -32,6 +32,11 @@ public class LoginActivity extends LlevameActivity {
                    reader.readString(R.string.login_progress_message));
     }
 
+    public void signupOnClick(View view) {
+        Intent i = new Intent(getApplicationContext(), RegistrationActivity.class);
+        startActivity(i);
+    }
+
     public void loginOnClick(View view) {
         displayProgressDialog();
 

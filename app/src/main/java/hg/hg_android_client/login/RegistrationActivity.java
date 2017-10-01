@@ -42,8 +42,7 @@ public class RegistrationActivity extends LlevameActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRegistrationSuccess(RegistrationSuccess event) {
         dismissDialog();
-        // TODO Improve transition or something...
-
+        // TODO: Refactor, create strings in strings.xml
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle("Registration Successful");
         dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",

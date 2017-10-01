@@ -13,6 +13,8 @@ import hg.hg_android_client.login.event.RegistrationSuccess;
 import hg.hg_android_client.login.intent.FacebookAuthenticationIntent;
 import hg.hg_android_client.login.intent.LoginIntent;
 import hg.hg_android_client.login.intent.RegistrationIntent;
+import hg.hg_android_client.login.repository.LoginEndpoint;
+import hg.hg_android_client.login.repository.LoginEndpointFactory;
 import hg.hg_android_client.login.repository.RegistrationEndpoint;
 import hg.hg_android_client.login.repository.RegistrationEndpointFactory;
 
@@ -26,6 +28,10 @@ public class IdentityService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        if (intent == null) {
+            return;
+        }
+
         String action = intent.getAction();
 
         switch(action) {
@@ -76,12 +82,16 @@ public class IdentityService extends IntentService {
         String username = intent.getStringExtra(LoginIntent.KEY_USERNAME);
         String password = intent.getStringExtra(LoginIntent.KEY_PASSWORD);
 
-        /*
-         * Hit login endpoint.
-         */
+        LoginEndpoint.Response response = new LoginEndpointFactory()
+                .getEndpoint().login(username, password);
 
-        AuthSuccess e = new AuthSuccess();
-        EventBus.getDefault().post(e);
+        if (response.isSuccess()) {
+            // TODO: Store session token.
+            AuthSuccess e = new AuthSuccess(response.getToken());
+            EventBus.getDefault().post(e);
+        } else {
+            // TODO: Handle error case.
+        }
     }
 
 }
