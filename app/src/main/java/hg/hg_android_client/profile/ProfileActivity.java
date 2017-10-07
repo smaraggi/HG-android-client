@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.RadioButton;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import hg.hg_android_client.R;
+import hg.hg_android_client.login.LoginActivity;
 import hg.hg_android_client.login.repository.TokenRepository;
 import hg.hg_android_client.login.repository.TokenRepositoryFactory;
 import hg.hg_android_client.model.CreditCard;
+import hg.hg_android_client.model.Driver;
 import hg.hg_android_client.model.Passenger;
 import hg.hg_android_client.model.User;
 import hg.hg_android_client.profile.event.UpdateSuccess;
@@ -26,25 +29,37 @@ import hg.hg_android_client.util.UiReader;
 
 public class ProfileActivity extends LlevameActivity {
 
+    public static final String KEY_CAR = "KEY_CAR";
+    public static final String KEY_CARD = "KEY_CARD";
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        initializeComponents();
 
+        User user = retrieveCachedUser();
+
+        if (user == null) {
+            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(i);
+        }
+
+        initializeComponents(user);
         if (savedInstanceState == null) {
-            initializeFragments();
+            initializeFragments(user);
         }
     }
 
-    private void initializeComponents() {
+    private User retrieveCachedUser() {
+        ProfileRepositoryFactory f = new ProfileRepositoryFactory();
+        ProfileRepository r = f.getRepository();
+        return r.retrieveCached();
+    }
+
+    private void initializeComponents(User user) {
         // TODO: Mark required fields that are missing.
 
         UiReader reader = new UiReader(this);
         View parent = findViewById(R.id.profile_parent);
-
-        ProfileRepositoryFactory f = new ProfileRepositoryFactory();
-        ProfileRepository r = f.getRepository();
-        User user = r.retrieveCached();
 
         int[] id = {
                 R.id.first_name,
@@ -77,15 +92,33 @@ public class ProfileActivity extends LlevameActivity {
         }
     }
 
-    private void initializeFragments() {
-        // TODO: Select from one fragment or the other depending on user.
-        //       Grab user from repository, and depending on type fill fragment.
-        NoneSelectedFragment fragment = new NoneSelectedFragment();
+    private void initializeFragments(User user) {
+        Bundle arguments = new Bundle();
+        Fragment fragment;
+
+        if (User.Role.DRIVER.equals(user.getRole())) {
+            checkRadio(R.id.radio_driver);
+            arguments.putSerializable(KEY_CAR, ((Driver)user).getCar());
+            fragment = new DriverProfileFragment();
+        } else if (User.Role.PASSENGER.equals(user.getRole())) {
+            checkRadio(R.id.radio_passenger);
+            arguments.putSerializable(KEY_CARD, ((Passenger)user).getCreditCard());
+            fragment = new PassengerProfileFragment();
+        } else {
+            fragment = new NoneSelectedFragment();
+        }
+
+        fragment.setArguments(arguments);
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+    private void checkRadio(int id) {
+        RadioButton r = (RadioButton) findViewById(id);
+        r.setChecked(true);
     }
 
     public void onDriverSelected(View view) {
@@ -105,9 +138,10 @@ public class ProfileActivity extends LlevameActivity {
 
     public void updateProfileOnClick(View view) {
         // TODO: Implement scrolling for profile activity.
-        // TODO: Move to strings.
         hideKeyboard();
-        showDialog("Updating Profile", "Please wait...");
+        String title = getResources().getString(R.string.profile_updating);
+        String message = getResources().getString(R.string.profile_updating_message);
+        showDialog(title, message);
         Intent i = new UpdateProfileIntent(this, getToken(), createUser());
         this.startService(i);
     }
@@ -120,26 +154,27 @@ public class ProfileActivity extends LlevameActivity {
 
     private User createUser() {
         // TODO: Implement;
-        CreditCard creditCard = new CreditCard("1234", "123", "12/17");
+        CreditCard creditCard = new CreditCard("1234,", "123", "12/17");
         return new Passenger("bob", "mike", "somewhere", "18/05/92", creditCard);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdateSuccess(UpdateSuccess event) {
         dismissDialog();
-        // TODO: Refactor, create strings in strings.xml.
         // TODO: Update data being displayed in the screen w/ new cached profile;
         //       May need to refactor code above for this.
-        AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setTitle("Update Successful");
-        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.dismiss();
-                    }
-                });
-        dialog.show();
+
+        String message = getString(R.string.profile_update_success);
+        String buttonMessage = getString(R.string.OK);
+
+        AlertDialog.OnClickListener handler = new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        };
+
+        displayConfirmationDialog(message, buttonMessage, handler);
     }
 
 }

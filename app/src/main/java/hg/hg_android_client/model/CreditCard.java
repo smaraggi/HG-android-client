@@ -7,6 +7,10 @@ public class CreditCard implements Serializable {
     private final String securityCode;
     private final String expirationDate;
 
+    public static CreditCard empty() {
+        return new CreditCard("", "", "");
+    }
+
     public CreditCard(String number, String securityCode, String expirationDate) {
         this.number = number;
         this.securityCode = securityCode;

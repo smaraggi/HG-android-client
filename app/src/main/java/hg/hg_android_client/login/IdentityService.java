@@ -17,6 +17,8 @@ import hg.hg_android_client.login.repository.LoginEndpoint;
 import hg.hg_android_client.login.repository.LoginEndpointFactory;
 import hg.hg_android_client.login.repository.RegistrationEndpoint;
 import hg.hg_android_client.login.repository.RegistrationEndpointFactory;
+import hg.hg_android_client.login.repository.TokenRepository;
+import hg.hg_android_client.login.repository.TokenRepositoryFactory;
 
 public class IdentityService extends IntentService {
 
@@ -86,12 +88,18 @@ public class IdentityService extends IntentService {
                 .getEndpoint().login(username, password);
 
         if (response.isSuccess()) {
-            // TODO: Store session token.
+            cacheToken(response.getToken());
             AuthSuccess e = new AuthSuccess(response.getToken());
             EventBus.getDefault().post(e);
         } else {
             // TODO: Handle error case.
         }
+    }
+
+    private void cacheToken(String token) {
+        TokenRepositoryFactory f = new TokenRepositoryFactory();
+        TokenRepository r = f.getRepository(getApplicationContext());
+        r.updateToken(token);
     }
 
 }

@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content" />
 
             <RadioButton
+                android:id="@+id/radio_passenger"
                 android:text="@string/passenger"
                 android:layout_weight="3"
                 android:layout_width="0px"
@@ -61,6 +62,7 @@
                 android:onClick="onPassengerSelected"/>
 
             <RadioButton
+                android:id="@+id/radio_driver"
                 android:text="@string/driver"
                 android:layout_weight="2"
                 android:layout_width="0px"

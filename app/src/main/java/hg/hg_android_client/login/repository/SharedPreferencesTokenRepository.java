@@ -6,19 +6,20 @@ public class SharedPreferencesTokenRepository implements TokenRepository {
 
     private SharedPreferences preferences;
 
+    private static final String KEY_TOKEN = "TOKEN";
+
     public SharedPreferencesTokenRepository(SharedPreferences preferences) {
         this.preferences = preferences;
     }
 
     @Override
     public String getToken() {
-        // TODO: Implement
-        return "12345678";
+        return preferences.getString(KEY_TOKEN, null);
     }
 
     @Override
     public void updateToken(String token) {
-        // TODO: Implement
+        preferences.edit().putString(KEY_TOKEN, token).commit();
     }
 
 }

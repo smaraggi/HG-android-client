@@ -42,19 +42,19 @@ public class RegistrationActivity extends LlevameActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRegistrationSuccess(RegistrationSuccess event) {
         dismissDialog();
-        // TODO: Refactor, create strings in strings.xml
-        AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setTitle("Registration Successful");
-        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.dismiss();
-                        Intent move = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(move);
-                    }
-                });
-        dialog.show();
+        String message = getResources().getString(R.string.registration_successful);
+        String buttonMessage = getResources().getString(R.string.OK);
+
+        DialogInterface.OnClickListener h = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+                Intent move = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(move);
+            }
+        };
+
+        displayConfirmationDialog(message, buttonMessage, h);
     }
 
 }

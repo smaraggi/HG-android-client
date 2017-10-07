@@ -84,12 +84,7 @@ public class LoginActivity extends LlevameActivity {
     public void onRetrieveSuccess(RetrieveSuccess event) {
         dismissDialog();
         User user = event.getUser();
-        if (user.isProfileComplete()) {
-            // TODO: Go to main screen.
-        } else {
-            Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(i);
-        }
+        evaluateUserProfile(user);
     }
 
     private void retrieveProfile(String token) {
@@ -99,10 +94,13 @@ public class LoginActivity extends LlevameActivity {
     }
 
     private void retrieveCachedProfile() {
-        // TODO: Refactor above or something.
         ProfileRepositoryFactory f = new ProfileRepositoryFactory();
         ProfileRepository r = f.getRepository();
         User user = r.retrieveCached();
+        evaluateUserProfile(user);
+    }
+
+    private void evaluateUserProfile(User user) {
         if (user != null && user.isProfileComplete()) {
             // TODO: Go to main screen.
         } else {

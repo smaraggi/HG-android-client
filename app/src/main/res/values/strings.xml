@@ -5,6 +5,8 @@
     <string name="facebook_app_id">1897634877226632</string>
     <string name="fb_login_protocol_scheme">fb1897634877226632</string>
 
+    <string name="OK">OK</string>
+
     <string name="login_progress_title">Retrieving User Profile</string>
     <string name="login_progress_message">Please wait...</string>
 
@@ -38,5 +40,11 @@
 
     <string name="profile_save">Save</string>
     <string name="profile_type_none_selected">No profile type selected</string>
+
+    <string name="registration_successful">Registration Successful</string>
+
+    <string name="profile_updating">Updating Profile</string>
+    <string name="profile_updating_message">Please wait...</string>
+    <string name="profile_update_success">Update Successful</string>
 
 </resources>
