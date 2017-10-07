@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView style="@style/BoldTitle"
+        android:text="@string/profile_card_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/component_editable_field"
+        android:id="@+id/card_number" />
+
+    <include layout="@layout/component_editable_field"
+        android:id="@+id/security_code" />
+
+    <include layout="@layout/component_editable_field"
+        android:id="@+id/expiration_date"/>
+
+</LinearLayout>

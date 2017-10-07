@@ -5,7 +5,48 @@
     <string name="facebook_app_id">1897634877226632</string>
     <string name="fb_login_protocol_scheme">fb1897634877226632</string>
 
+    <string name="OK">OK</string>
+
     <string name="login_progress_title">Retrieving User Profile</string>
     <string name="login_progress_message">Please wait...</string>
+
+    <string name="button_login">Sign In</string>
+    <string name="button_signup">Sign Up</string>
+    <string name="label_or">or...</string>
+
+    <string name="person_username">Username</string>
+    <string name="person_password">Password</string>
+    <string name="person_email">Email</string>
+    <string name="registration_continue">Register</string>
+
+    <string name="register_progress_title">Registering</string>
+    <string name="register_progress_message">Please wait...</string>
+
+    <string name="profile_name">First Name</string>
+    <string name="profile_last_name">Last Name</string>
+    <string name="profile_birthdate">Birthdate</string>
+    <string name="profile_location">Location</string>
+    <string name="profile_carmodel">Car Model</string>
+    <string name="profile_patent">Car Patent</string>
+    <string name="profile_car_details">Car Details</string>
+    <string name="profile_card_details">Credit Card Details</string>
+    <string name="profile_card_number">Card Number</string>
+    <string name="profile_security_code">Security Code</string>
+    <string name="profile_expiration_date">Expiration Date</string>
+
+    <string name="profile_iam">I am a</string>
+    <string name="passenger">Passenger</string>
+    <string name="driver">Driver</string>
+
+    <string name="profile_save">Save</string>
+    <string name="profile_logout">Sign Out</string>
+    <string name="profile_type_none_selected">No profile type selected</string>
+
+    <string name="registration_successful">Registration Successful</string>
+    <string name="registration_failed">Registration Failed</string>
+
+    <string name="profile_updating">Updating Profile</string>
+    <string name="profile_updating_message">Please wait...</string>
+    <string name="profile_update_success">Update Successful</string>
 
 </resources>
