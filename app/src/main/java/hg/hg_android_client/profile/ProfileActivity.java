@@ -15,6 +15,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import hg.hg_android_client.R;
 import hg.hg_android_client.login.LoginActivity;
+import hg.hg_android_client.login.event.LogoutSuccess;
+import hg.hg_android_client.login.intent.LogoutIntent;
 import hg.hg_android_client.login.repository.TokenRepository;
 import hg.hg_android_client.login.repository.TokenRepositoryFactory;
 import hg.hg_android_client.model.Car;
@@ -199,6 +201,25 @@ public class ProfileActivity extends LlevameActivity {
         };
 
         displayConfirmationDialog(message, buttonMessage, handler);
+    }
+
+
+
+    public void logoutOnClick(View view) {
+        // TODO: Handle logout better (create toolbar, make code common).
+        hideKeyboard();
+        String title = "Logging Out";
+        String message = "Please wait...";
+        showDialog(title, message);
+        Intent i = new LogoutIntent(getApplicationContext());
+        startService(i);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLogoutSuccess(LogoutSuccess event) {
+        dismissDialog();
+        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(i);
     }
 
 }

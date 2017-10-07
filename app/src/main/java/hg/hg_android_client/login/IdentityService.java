@@ -10,10 +10,12 @@ import org.greenrobot.eventbus.EventBus;
 import hg.hg_android_client.login.event.AuthFailure;
 import hg.hg_android_client.login.event.AuthSuccess;
 import hg.hg_android_client.login.event.FacebookAuthSuccess;
+import hg.hg_android_client.login.event.LogoutSuccess;
 import hg.hg_android_client.login.event.RegistrationFailed;
 import hg.hg_android_client.login.event.RegistrationSuccess;
 import hg.hg_android_client.login.intent.FacebookAuthenticationIntent;
 import hg.hg_android_client.login.intent.LoginIntent;
+import hg.hg_android_client.login.intent.LogoutIntent;
 import hg.hg_android_client.login.intent.RegistrationIntent;
 import hg.hg_android_client.login.repository.LoginEndpoint;
 import hg.hg_android_client.login.repository.LoginEndpointFactory;
@@ -47,6 +49,9 @@ public class IdentityService extends IntentService {
                 break;
             case LoginIntent.ACTION:
                 handleApplicationLogin(intent);
+                break;
+            case LogoutIntent.ACTION:
+                handleLogout(intent);
                 break;
             default:
                 break;
@@ -104,6 +109,11 @@ public class IdentityService extends IntentService {
         TokenRepositoryFactory f = new TokenRepositoryFactory();
         TokenRepository r = f.getRepository(getApplicationContext());
         r.updateToken(token);
+    }
+
+    private void handleLogout(Intent intent) {
+        cacheToken(null);
+        EventBus.getDefault().post(new LogoutSuccess());
     }
 
 }
