@@ -44,7 +44,7 @@ public abstract class User implements Serializable {
     }
 
     public enum Role {
-        DRIVER, PASSENGER
+        DRIVER, PASSENGER, UNKNOWN
     }
 
     public boolean isProfileComplete() {

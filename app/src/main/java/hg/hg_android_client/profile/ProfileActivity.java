@@ -4,9 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -15,6 +17,7 @@ import hg.hg_android_client.R;
 import hg.hg_android_client.login.LoginActivity;
 import hg.hg_android_client.login.repository.TokenRepository;
 import hg.hg_android_client.login.repository.TokenRepositoryFactory;
+import hg.hg_android_client.model.Car;
 import hg.hg_android_client.model.CreditCard;
 import hg.hg_android_client.model.Driver;
 import hg.hg_android_client.model.Passenger;
@@ -149,21 +152,42 @@ public class ProfileActivity extends LlevameActivity {
     private String getToken() {
         TokenRepositoryFactory f = new TokenRepositoryFactory();
         TokenRepository r = f.getRepository(this.getApplicationContext());
-        return r.getToken(); // TODO: Handle null case.
+        return r.getToken();
     }
 
     private User createUser() {
-        // TODO: Implement;
-        CreditCard creditCard = new CreditCard("1234,", "123", "12/17");
-        return new Passenger("bob", "mike", "somewhere", "18/05/92", creditCard);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
+
+        View parent = findViewById(R.id.profile_parent);
+
+        String firstname = readComponent(parent, R.id.first_name);
+        String lastname = readComponent(parent, R.id.last_name);
+        String location = readComponent(parent, R.id.location);
+        String birthdate = readComponent(parent, R.id.birthdate);
+
+        RadioGroup g = (RadioGroup) findViewById(R.id.role_radios);
+        int selectedId = g.getCheckedRadioButtonId();
+
+        if (selectedId == R.id.radio_driver) {
+            Car car = ((DriverProfileFragment) fragment).getCar();
+            return new Driver(firstname, lastname, location, birthdate, car);
+        } else if (selectedId == R.id.radio_passenger) {
+            CreditCard card = ((PassengerProfileFragment) fragment).getCreditCard();
+            return new Passenger(firstname, lastname, location, birthdate, card);
+        } else {
+            // TODO: Validate whether all the data is complete; we should not hit this else.
+            return null;
+        }
+    }
+
+    private String readComponent(View parent, int id) {
+        return new EditableFieldComponent(parent, id).getText();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdateSuccess(UpdateSuccess event) {
         dismissDialog();
-        // TODO: Update data being displayed in the screen w/ new cached profile;
-        //       May need to refactor code above for this.
-
         String message = getString(R.string.profile_update_success);
         String buttonMessage = getString(R.string.OK);
 

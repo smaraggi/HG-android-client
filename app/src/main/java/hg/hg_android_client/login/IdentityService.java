@@ -7,8 +7,10 @@ import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
+import hg.hg_android_client.login.event.AuthFailure;
 import hg.hg_android_client.login.event.AuthSuccess;
 import hg.hg_android_client.login.event.FacebookAuthSuccess;
+import hg.hg_android_client.login.event.RegistrationFailed;
 import hg.hg_android_client.login.event.RegistrationSuccess;
 import hg.hg_android_client.login.intent.FacebookAuthenticationIntent;
 import hg.hg_android_client.login.intent.LoginIntent;
@@ -76,7 +78,8 @@ public class IdentityService extends IntentService {
             RegistrationSuccess e = new RegistrationSuccess();
             EventBus.getDefault().post(e);
         } else {
-            // TODO: Handle error case.
+            RegistrationFailed e = new RegistrationFailed(response.getErrorMessage());
+            EventBus.getDefault().post(e);
         }
     }
 
@@ -92,7 +95,8 @@ public class IdentityService extends IntentService {
             AuthSuccess e = new AuthSuccess(response.getToken());
             EventBus.getDefault().post(e);
         } else {
-            // TODO: Handle error case.
+            AuthFailure e = new AuthFailure(response.getErrorMessage());
+            EventBus.getDefault().post(e);
         }
     }
 

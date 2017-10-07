@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import hg.hg_android_client.R;
+import hg.hg_android_client.login.event.RegistrationFailed;
 import hg.hg_android_client.login.event.RegistrationSuccess;
 import hg.hg_android_client.login.intent.RegistrationIntent;
 import hg.hg_android_client.util.LlevameActivity;
@@ -55,6 +56,21 @@ public class RegistrationActivity extends LlevameActivity {
         };
 
         displayConfirmationDialog(message, buttonMessage, h);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRegistrationFailure(RegistrationFailed event) {
+        dismissDialog();
+
+        String message = getString(R.string.registration_failed);
+        String btnmesg = getString(R.string.OK);
+
+        displayConfirmationDialog(message, btnmesg, new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int i) {
+                d.dismiss();
+            }
+        });
     }
 
 }

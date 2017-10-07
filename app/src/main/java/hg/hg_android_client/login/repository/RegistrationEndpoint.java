@@ -6,13 +6,27 @@ public interface RegistrationEndpoint {
 
     class Response {
         private final boolean success;
+        private final String errorMessage;
 
-        Response(boolean success) {
+        public static Response success() {
+            return new Response(true, null);
+        }
+
+        public static Response error(String message) {
+            return new Response(false, message);
+        }
+
+        Response(boolean success, String errorMessage) {
             this.success = success;
+            this.errorMessage = errorMessage;
         }
 
         public boolean isSuccess() {
             return success;
+        }
+
+        public String getErrorMessage() {
+            return errorMessage;
         }
 
     }

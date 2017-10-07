@@ -81,4 +81,11 @@ public class PassengerProfileFragment extends Fragment {
         return reader.readEditText(R.id.edit_field);
     }
 
+    public CreditCard getCreditCard() {
+        return new CreditCard(
+                getCardNumber(),
+                getCardSecurityCode(),
+                getCardExpiration());
+    }
+
 }

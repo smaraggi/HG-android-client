@@ -7,7 +7,7 @@ public class Driver extends User implements Serializable {
 
     private final Car car;
 
-    protected Driver(
+    public Driver(
             String firstName,
             String lastName,
             String location,

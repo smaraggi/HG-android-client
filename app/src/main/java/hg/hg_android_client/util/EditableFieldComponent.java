@@ -22,4 +22,8 @@ public class EditableFieldComponent {
         ((EditText) component.findViewById(R.id.edit_field)).setText(text);
     }
 
+    public String getText() {
+        return ((EditText) component.findViewById(R.id.edit_field)).getText().toString();
+    }
+
 }

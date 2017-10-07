@@ -72,4 +72,8 @@ public class DriverProfileFragment extends Fragment {
         return reader.readEditText(R.id.edit_field);
     }
 
+    public Car getCar() {
+        return new Car(getPatent(), getCarModel());
+    }
+
 }

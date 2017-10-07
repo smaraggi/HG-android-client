@@ -8,7 +8,13 @@ public class MockRegistrationEndpoint implements RegistrationEndpoint {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
         }
-        return new RegistrationEndpoint.Response(true);
+
+        if ("regerror".equals(username)) {
+            return RegistrationEndpoint.Response.error("Username already exists");
+        } else {
+            return RegistrationEndpoint.Response.success();
+        }
+
     }
 
 }

@@ -1,6 +1,8 @@
 package hg.hg_android_client.login;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import hg.hg_android_client.R;
+import hg.hg_android_client.login.event.AuthFailure;
 import hg.hg_android_client.login.event.AuthSuccess;
 import hg.hg_android_client.login.event.DisplayLoginProgress;
 import hg.hg_android_client.login.event.HideLoginProgress;
@@ -78,6 +81,23 @@ public class LoginActivity extends LlevameActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAuthSuccess(AuthSuccess event) {
         retrieveProfile(event.getToken());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAuthFailure(AuthFailure event) {
+        dismissDialog();
+        String message = event.getMessage();
+        String buttonm = getString(R.string.OK);
+
+        displayConfirmationDialog(
+                message,
+                buttonm,
+                new AlertDialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int i) {
+                        d.dismiss();
+                    }
+                });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

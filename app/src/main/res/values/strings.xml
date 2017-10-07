@@ -42,6 +42,7 @@
     <string name="profile_type_none_selected">No profile type selected</string>
 
     <string name="registration_successful">Registration Successful</string>
+    <string name="registration_failed">Registration Failed</string>
 
     <string name="profile_updating">Updating Profile</string>
     <string name="profile_updating_message">Please wait...</string>
